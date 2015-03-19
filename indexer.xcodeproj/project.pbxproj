@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8E3E1FEB1ABB509A00F02507 /* parser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8E3E1FE91ABB509A00F02507 /* parser.cpp */; };
 		8E4AF1521AADDBDB003D9F79 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8E4AF1511AADDBDB003D9F79 /* main.cpp */; };
 		8EBBFD281AB140A40000150E /* libhtmlcxx.3.1.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EBBFD251AB140A40000150E /* libhtmlcxx.3.1.0.dylib */; };
 		8EBBFD291AB140A40000150E /* libhtmlcxx.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EBBFD261AB140A40000150E /* libhtmlcxx.3.dylib */; };
@@ -30,6 +31,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		8E3E1FE91ABB509A00F02507 /* parser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = parser.cpp; sourceTree = "<group>"; };
+		8E3E1FEA1ABB509A00F02507 /* parser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = parser.h; sourceTree = "<group>"; };
 		8E4AF1511AADDBDB003D9F79 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		8EBBFD1C1AB13ECD0000150E /* indexer */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = indexer; sourceTree = BUILT_PRODUCTS_DIR; };
 		8EBBFD251AB140A40000150E /* libhtmlcxx.3.1.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libhtmlcxx.3.1.0.dylib; sourceTree = "<group>"; };
@@ -81,6 +84,8 @@
 		8E4AF1501AADDBDB003D9F79 /* indexer */ = {
 			isa = PBXGroup;
 			children = (
+				8E3E1FE91ABB509A00F02507 /* parser.cpp */,
+				8E3E1FEA1ABB509A00F02507 /* parser.h */,
 				8E4AF1511AADDBDB003D9F79 /* main.cpp */,
 			);
 			path = indexer;
@@ -186,6 +191,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8E3E1FEB1ABB509A00F02507 /* parser.cpp in Sources */,
 				8EC916481AB11B3500D7CC98 /* CollectionReader.cpp in Sources */,
 				8EC9164A1AB11B3500D7CC98 /* CollectionWriter.cpp in Sources */,
 				8EC9164C1AB11B3500D7CC98 /* Document.cpp in Sources */,
