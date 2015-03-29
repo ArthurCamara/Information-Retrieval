@@ -9,6 +9,34 @@
 #ifndef ____parser__
 #define ____parser__
 
-#include <stdio.h>
+#include <iostream>
+#include <string>
+#include <html/ParserDom.h>
+#include <html/utils.h>
+#include <html/Uri.h>
+#include <vector>
+#include <unordered_map>
+
+using namespace std;
+class Page{
+  string url_;
+  string data_;
+  string text_;
+  string title_;
+  string description_;
+  string keywords_;
+  string contenttype_;
+  unordered_map<string, string> links_;
+  
+ public:
+  Page();
+  Page(string data, string url) { data_ = data; url_ = url; };
+  void parseData();
+  
+  string getURL() { return url_; }
+  string getText() { return text_; }
+  string getData() { return data_; }
+  
+};
 
 #endif /* defined(____parser__) */

@@ -24,7 +24,6 @@ namespace RICPNS {
 
 			// TODO:
 			// std::string getDocument(const std::string & url);
-
 		private:
 
 			void initialize();
@@ -36,9 +35,8 @@ namespace RICPNS {
 			std::string inputDirectory_;
 			std::string inputIndexFileName_;
 			std::string inputContentFileName_;
-
-			FILE* inputIndexFilePtr_;
-			FILE* inputContentFilePtr_;
+      FILE* inputIndexFilePtr_;
+      FILE* inputContentFilePtr_;
 
 			size_t inputCurrentOffset_;
 	};
