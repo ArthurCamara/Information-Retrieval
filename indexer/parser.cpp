@@ -14,6 +14,12 @@ using namespace std;
 
 Page::Page() {}
 
+Page::Page(string data, string url){
+  data_ = data;
+  url_  = url;
+  
+  parseData();
+}
 
 void Page::parseData() {
   HTML::ParserDom parser;
@@ -21,7 +27,7 @@ void Page::parseData() {
   tree<HTML::Node>::iterator it = dom.begin();
   tree<HTML::Node>::iterator end = dom.end();
   
-  string text_ = ""+url_;
+  text_ += " "+url_;
   
   for(; it != end; ++it) {
     if(it.node != 0 && dom.parent(it) != NULL) {
@@ -31,7 +37,7 @@ void Page::parseData() {
                 parenttag.end(),
                 parenttag.begin(),
                 ::tolower);
-      if(parenttag == "script" || parenttag == "noscript") {
+      if(parenttag == "script" || parenttag == "noscript" || parenttag == "style") {
         it.skip_children();
         continue;
       }

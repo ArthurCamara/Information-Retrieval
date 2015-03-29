@@ -21,7 +21,10 @@ int main(int argc, const char * argv[]) {
   
   string inputDirectory(argv[2]);
   
-  RICPNS::CollectionReader * reader = new RICPNS::CollectionReader(inputDirectory, inputCollectionIndex);
+  RICPNS::CollectionReader * reader = new RICPNS::CollectionReader(
+      inputDirectory,
+      inputCollectionIndex);
+  
   RICPNS::Document doc;
 
   doc.clear();
@@ -39,22 +42,25 @@ int main(int argc, const char * argv[]) {
     
     if (bytesOccupied+sizeof(data) >= MAXMEMORY){
       
-      for (unsigned long i =0 ; i<p.size(); ++i)
-        p[i].parseData();
-  
+      for (unsigned long i =0 ; i<p.size(); ++i) {
+        //TODO: Write tuples to files
+      }
       //erase the vector. vector<T>::clear does not guarantee to free memory.
       vector<Page>().swap(p);
       bytesOccupied = 0;
     }
     
-
-    bytesOccupied+=sizeof(data);
     Page *aux = new Page(data, url);
+    bytesOccupied+=sizeof(data);
     doc.clear();
     p.push_back(*aux);
     delete aux;
   }
-
+  for (unsigned long i =0 ; i<p.size(); ++i) {
+        //TODO: Write tuples to files
+  }
+  vector<Page>().swap(p);
+  
   delete reader;
   return 0;
 }

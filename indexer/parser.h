@@ -30,12 +30,18 @@ class Page{
   
  public:
   Page();
-  Page(string data, string url) { data_ = data; url_ = url; };
+  Page(string data, string url);
+
   void parseData();
   
   string getURL() { return url_; }
-  string getText() { return text_; }
   string getData() { return data_; }
+  string getText() { return text_; }
+  string getTitle() {return title_; }
+  string getDescription() { return description_; }
+  string getKeyWords() { return keywords_; }
+  string getContentType() { return contenttype_; }
+  unordered_map<string, string> getLinks() { return links_; }
   
 };
 
