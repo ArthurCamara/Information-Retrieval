@@ -8,11 +8,41 @@
 
 #include "parser.h"
 #include <string>
+#include <boost/tokenizer.hpp>
+#include <boost/foreach.hpp>
+#include <boost/locale.hpp>
+#include <codecvt>
+#include <locale>
+
+
 
 using namespace htmlcxx;
 using namespace std;
 
 const unsigned long kMaxMemory = 40000000;
+
+/*
+ The following code is from Even Teran. Source is 
+ http://stackoverflow.com/questions/216823/whats-the-best-way-to-trim-stdstring
+ */
+static inline std::string &ltrim(std::string &s) {
+  s.erase(s.begin(), std::find_if(s.begin(), s.end(),
+      std::not1(std::ptr_fun<int, int>(std::isspace))));
+  return s;
+}
+
+// trim from end
+static inline std::string &rtrim(std::string &s) {
+  s.erase(std::find_if(s.rbegin(), s.rend(),
+      std::not1(std::ptr_fun<int, int>(std::isspace))).base(), s.end());
+  return s;
+}
+
+// trim from both ends
+static inline std::string &trim(std::string &s) {
+  return ltrim(rtrim(s));
+}
+
 
 Page::Page() {}
 
@@ -106,10 +136,28 @@ void Page::parseData() {
 }
 
 void Page::generate_keywords(){
-  //TODO: Get text, tokenize and add to keywords
+  using namespace boost;
+  char_separator<char> sep(", !?:;\"'`.()[]{}-_<>~|\\/\n\t");
+  tokenizer<char_separator<char>> tokens(text_, sep);
+
+  BOOST_FOREACH(const string &t, tokens) {
+    string str = t;
+    str = trim(str);
+    if(str.size()>1){
+      if(keywords().find(str)==keywords().end()){
+        keywords_.insert(make_pair(str, 0));
+      }
+      else{
+        keywords_[str]++;
+      }
+    }
+  }
   return;
 }
 
+string Page::writableTriple(){
+  return " ";
+}
 
 Parser::Parser(string input_directory,string input_collection_index){
   size_of_documents_=0;
@@ -129,7 +177,7 @@ Parser::Parser(string input_directory,string input_collection_index){
   
   while(reader->getNextDocument(doc)) {
     counter ++;
-    cout<<counter<<endl;
+//    cout<<counter<<endl;
     data = doc.getText();
     url = doc.getURL();
     
@@ -153,7 +201,13 @@ Parser::Parser(string input_directory,string input_collection_index){
   delete reader;
 }
 
-
-
-
-
+void Parser::updateVocabulary(vector<string> words){
+  for(unsigned int i = 0; i<words.size(); ++i) {
+    if(vocabulary_.find(words[i])!=vocabulary_.end()){
+      vocabulary_[words[i]]++;
+    }
+    else{
+      vocabulary_.insert(make_pair(words[i], 0));
+    }
+  }
+}

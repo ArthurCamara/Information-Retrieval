@@ -47,7 +47,7 @@ class Page{
   unordered_map<string, int> keywords() { return keywords_; }
   string content_type() { return content_type_; }
   unordered_map<string, string> getLinks() { return links_; }
-  
+  string writableTriple();
 };
 
 
@@ -60,6 +60,7 @@ private:
   string input_directory_;
   string input_collection_index_;
   unordered_map<string, unsigned long> vocabulary_;
+  void updateVocabulary(vector<string>);
   
 public:
   size_t size_of_documents() { return size_of_documents_; }
