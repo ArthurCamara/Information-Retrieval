@@ -12,6 +12,8 @@
 using namespace htmlcxx;
 using namespace std;
 
+const unsigned long kMaxMemory = 40000000;
+
 Page::Page() {}
 
 Page::Page(string data, string url){
@@ -60,17 +62,24 @@ void Page::parseData() {
           it->parseAttributes();
           if(it->attribute("name").first == true) {
             string a = it->attribute("name").second;
+            string content = it->attribute("content").second;
             transform(a.begin(), a.end(), a.begin(), ::tolower);
             if (a == "description")
-              description_ = it->attribute("content").second;
-            else if (a == "keywords")
-              keywords_ = it->attribute("content").second;
+              description_ = content;
+            else if (a == "keywords"){
+              if(keywords_.find(content)!=keywords_.end()){
+                keywords_.insert(make_pair(content, 0));
+              }
+              else{
+                keywords_[content]++;
+              }
+            }
           }
           string a = it->attribute("http-equiv").second;
           transform(a.begin(), a.end(), a.begin(), ::tolower);
           if (it->attribute("http-equiv").first == true &&
               it->attribute("http-equiv").second == "content-type") {
-            contenttype_ = it->attribute("content").second;
+            content_type_ = it->attribute("content").second;
           }
         }
         //parse links inside the page. Will be useful for PageRank
@@ -93,4 +102,58 @@ void Page::parseData() {
       }
     }
   }
+  generate_keywords();
 }
+
+void Page::generate_keywords(){
+  //TODO: Get text, tokenize and add to keywords
+  return;
+}
+
+
+Parser::Parser(string input_directory,string input_collection_index){
+  size_of_documents_=0;
+  input_directory_  = input_directory;
+  input_collection_index_ = input_collection_index;
+  RICPNS::CollectionReader * reader = new  RICPNS::CollectionReader(
+      input_directory_,
+      input_collection_index_);
+  
+  RICPNS::Document doc;
+  
+  doc.clear();
+  
+  string data, url;
+  
+  long counter = 0;
+  
+  while(reader->getNextDocument(doc)) {
+    counter ++;
+    cout<<counter<<endl;
+    data = doc.getText();
+    url = doc.getURL();
+    
+    if (size_of_documents() + sizeof(data) >= kMaxMemory) {
+      for (unsigned long i = 0; i<documents_.size(); ++i) {
+        //TODO process and print documents
+      }
+      vector<Page>().swap(documents_);
+      size_of_documents_ = 0;
+    }
+    Page *reading_page = new Page(data, url);
+    size_of_documents_ += sizeof(data);
+    doc.clear();
+    documents_.push_back(*reading_page);
+    delete reading_page;
+  }
+  for (unsigned long i = 0; i<documents_.size(); ++i){
+        //TODO process and print documents
+  }
+  vector<Page>().swap(documents_);
+  delete reader;
+}
+
+
+
+
+

@@ -71,6 +71,7 @@
 		8E3E1FEC1ABF825E00F02507 /* lib */ = {
 			isa = PBXGroup;
 			children = (
+				8EC916381AB11AC900D7CC98 /* Reader */,
 				8EC9164F1AB11D5600D7CC98 /* libz.dylib */,
 				8EBBFD251AB140A40000150E /* libhtmlcxx.3.1.0.dylib */,
 				8EBBFD261AB140A40000150E /* libhtmlcxx.3.dylib */,
@@ -84,7 +85,6 @@
 			children = (
 				8E3E1FEC1ABF825E00F02507 /* lib */,
 				8E4AF1501AADDBDB003D9F79 /* indexer */,
-				8EC916381AB11AC900D7CC98 /* Reader */,
 				8EBBFD1C1AB13ECD0000150E /* indexer */,
 			);
 			sourceTree = "<group>";
