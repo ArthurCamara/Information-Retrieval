@@ -10,10 +10,7 @@
 #include <string>
 #include <boost/tokenizer.hpp>
 #include <boost/foreach.hpp>
-#include <boost/locale.hpp>
-#include <codecvt>
-#include <locale>
-
+#include <sstream>
 
 
 using namespace htmlcxx;
@@ -46,10 +43,10 @@ static inline std::string &trim(std::string &s) {
 
 Page::Page() {}
 
-Page::Page(string data, string url){
+Page::Page(string data, string url, unsigned long pid){
   data_ = data;
   url_  = url;
-  
+  id_  = pid;
   parseData();
 }
 
@@ -63,6 +60,7 @@ void Page::parseData() {
   
   for(; it != end; ++it) {
     if(it.node != 0 && dom.parent(it) != NULL) {
+      
       //name of the parent tag that this node is in
       string parenttag = dom.parent(it)->tagName();
       transform(parenttag.begin(),
@@ -93,12 +91,13 @@ void Page::parseData() {
           if(it->attribute("name").first == true) {
             string a = it->attribute("name").second;
             string content = it->attribute("content").second;
+            transform(content.begin(), content.end(), content.begin(), ::tolower);
             transform(a.begin(), a.end(), a.begin(), ::tolower);
             if (a == "description")
               description_ = content;
             else if (a == "keywords"){
               if(keywords_.find(content)!=keywords_.end()){
-                keywords_.insert(make_pair(content, 0));
+                keywords_.insert(make_pair(content, 1));
               }
               else{
                 keywords_[content]++;
@@ -112,7 +111,7 @@ void Page::parseData() {
             content_type_ = it->attribute("content").second;
           }
         }
-        //parse links inside the page. Will be useful for PageRank
+        //parse links inside the page. Will be useful for PageRank in the future
         else if(tagname == "a") {
           it->parseAttributes();
           string a = it->attribute("rel").second;
@@ -142,10 +141,11 @@ void Page::generate_keywords(){
 
   BOOST_FOREACH(const string &t, tokens) {
     string str = t;
+    transform(str.begin(), str.end(), str.begin(), ::tolower);
     str = trim(str);
     if(str.size()>1){
       if(keywords().find(str)==keywords().end()){
-        keywords_.insert(make_pair(str, 0));
+        keywords_.insert(make_pair(str, 1));
       }
       else{
         keywords_[str]++;
@@ -155,12 +155,36 @@ void Page::generate_keywords(){
   return;
 }
 
-string Page::writableTriple(){
-  return " ";
+string Page::printableForIndex(unordered_map<string,
+                               pair<unsigned long, unsigned long> > vocabulary){
+  string ret ="";
+  bool should_add_divisor = false;
+  for (auto it = keywords_.begin(); it!=keywords_.end(); ++it) {
+    if(should_add_divisor)
+      ret+="|";
+    else
+      should_add_divisor = true;
+    string number, frequency, pageid;
+    stringstream strstream;
+    strstream<<vocabulary[it->first].first;
+    strstream>>number;
+    strstream.clear();
+    strstream<<keywords_[it->first];
+    strstream>>frequency;
+    strstream.clear();
+    strstream<<id_;
+    strstream>>pageid;
+    strstream.clear();
+    ret += number + "," + pageid + "," + frequency;
+  }
+  return ret;
 }
 
 Parser::Parser(string input_directory,string input_collection_index){
-  size_of_documents_=0;
+  size_of_documents_= 0;
+  vocabulary_size_ = 0;
+  number_of_documents = 0;
+  index_file_ = fopen("index.txt", "w");
   input_directory_  = input_directory;
   input_collection_index_ = input_collection_index;
   RICPNS::CollectionReader * reader = new  RICPNS::CollectionReader(
@@ -173,41 +197,86 @@ Parser::Parser(string input_directory,string input_collection_index){
   
   string data, url;
   
-  long counter = 0;
-  
   while(reader->getNextDocument(doc)) {
-    counter ++;
-//    cout<<counter<<endl;
+    number_of_documents++;
+//    if(counter%1000==0){
+//      cout<<counter<<endl;
+//    }
     data = doc.getText();
     url = doc.getURL();
     
     if (size_of_documents() + sizeof(data) >= kMaxMemory) {
-      for (unsigned long i = 0; i<documents_.size(); ++i) {
-        //TODO process and print documents
-      }
+      dumpIndex();
       vector<Page>().swap(documents_);
       size_of_documents_ = 0;
     }
-    Page *reading_page = new Page(data, url);
+    Page *reading_page = new Page(data, url, number_of_documents);
+    updateVocabulary(reading_page->keywords());
     size_of_documents_ += sizeof(data);
     doc.clear();
     documents_.push_back(*reading_page);
     delete reading_page;
   }
-  for (unsigned long i = 0; i<documents_.size(); ++i){
-        //TODO process and print documents
-  }
+  dumpIndex();
+  fclose(index_file_);
   vector<Page>().swap(documents_);
   delete reader;
+  dumpVocabulary();
+  
 }
 
-void Parser::updateVocabulary(vector<string> words){
-  for(unsigned int i = 0; i<words.size(); ++i) {
-    if(vocabulary_.find(words[i])!=vocabulary_.end()){
-      vocabulary_[words[i]]++;
-    }
-    else{
-      vocabulary_.insert(make_pair(words[i], 0));
+void Parser::updateVocabulary(unordered_map<string, unsigned long> words){
+  for(auto it = words.begin(); it!= words.end(); ++it) {
+    if(vocabulary_.find(it->first)!=vocabulary_.end())
+      vocabulary_[it->first].second+= it->second;
+    else {
+      vocabulary_size_++;
+      vocabulary_.insert(make_pair(it->first, make_pair(vocabulary_size_, it->second)));
     }
   }
+}
+
+//Iterate over every word on vocabulary and write it as <word, id, frequency>
+void Parser::dumpVocabulary(){
+  vocabulary_file_ = fopen("vocabulary.bin", "wb");
+  string wordid, frequency;
+  stringstream strstream;
+  string str;
+  for (auto it = vocabulary_.begin(); it!= vocabulary_.end(); ++it) {
+    strstream<<it->second.first;
+    strstream>>wordid;
+    strstream.clear();
+    strstream<<it->second.second;
+    strstream>>frequency;
+    strstream.clear();
+    str = it->first + "," + wordid +"," + frequency+"\n";
+    fwrite(str.c_str(), 1, str.length(), vocabulary_file_);
+  }
+  fclose(vocabulary_file_);
+}
+
+
+void Parser::dumpIndex(){
+  stringstream strstream;
+  string frequency, wordid, docid;
+  string str;
+  for (auto doc = documents_.begin(); doc!= documents_.end(); ++doc) {
+    str = "";
+    strstream<<doc->id();
+    strstream>>docid;
+    strstream.clear();
+    for (auto word = doc->keywords_.begin(); word != doc->keywords_.end(); ++word){
+      strstream<<word->second;
+      strstream>>frequency;
+      strstream.clear();
+      strstream<<vocabulary_[word->first].second;
+      strstream>>wordid;
+      strstream.clear();
+
+      str += wordid+","+docid+","+frequency+"\n";
+    }
+    fwrite(str.c_str(), 1, str.length(), index_file_);
+    str = "";
+  }
+  return;
 }

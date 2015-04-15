@@ -290,21 +290,17 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					/Users/arthur/c629ae4c7168216a9856/ios/framework,
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_VERSION = "";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"/usr/local/include/htmlcxx/**",
-					/usr/local/Cellar/boost/1.57.0/include/boost/,
+					/usr/local/include/,
 				);
 				LIBRARY_SEARCH_PATHS = (
 					/usr/local/lib,
 					"$(PROJECT_DIR)",
-					/usr/local/Cellar/boost/1.57.0/lib/,
 				);
 				MACOSX_DEPLOYMENT_TARGET = "";
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
@@ -320,21 +316,17 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					/Users/arthur/c629ae4c7168216a9856/ios/framework,
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_VERSION = "";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"/usr/local/include/htmlcxx/**",
-					/usr/local/Cellar/boost/1.57.0/include/boost/,
+					/usr/local/include/,
 				);
 				LIBRARY_SEARCH_PATHS = (
 					/usr/local/lib,
 					"$(PROJECT_DIR)",
-					/usr/local/Cellar/boost/1.57.0/lib/,
 				);
 				MACOSX_DEPLOYMENT_TARGET = "";
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
