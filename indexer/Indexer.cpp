@@ -43,7 +43,7 @@ Indexer::Indexer(string input_directory,string input_collection_index){
   while(reader->getNextDocument(doc)) {
     number_of_documents++;
     space_occupied_by_vector_ = keyword_vector_.size()*sizeof(tuple<uInt, uInt, uInt>) + sizeof(vector<tuple<uInt, uInt, uInt>>);
-    if(number_of_documents%1000 == 0){
+    if(number_of_documents%10000 == 0){
       cout<<number_of_documents<<" indexed"<<endl;
       cout<<"Using "<<space_occupied_by_vector_<<"B of memory"<<endl;
     }
