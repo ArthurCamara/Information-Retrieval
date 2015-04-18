@@ -38,10 +38,11 @@ Indexer::Indexer(string input_directory,string input_collection_index){
   doc.clear();
   
   string data, url;
-  
+  //avoiding reallocation when pushing_bag
+  keyword_vector_.reserve(kMaxMemory/sizeof(tuple<uInt, uInt, uInt>));
   while(reader->getNextDocument(doc)) {
     number_of_documents++;
-    space_occupied_by_vector_ = keyword_vector_.capacity()*sizeof(tuple<uInt, uInt, uInt>) + sizeof(vector<tuple<uInt, uInt, uInt>>);
+    space_occupied_by_vector_ = keyword_vector_.size()*sizeof(tuple<uInt, uInt, uInt>) + sizeof(vector<tuple<uInt, uInt, uInt>>);
     if(number_of_documents%1000 == 0){
       cout<<number_of_documents<<" indexed"<<endl;
       cout<<"Using "<<space_occupied_by_vector_<<"B of memory"<<endl;
@@ -49,10 +50,8 @@ Indexer::Indexer(string input_directory,string input_collection_index){
     //Memory is off-limit. Dump and clear everything. 1 extra document for safety
     if (space_occupied_by_vector_ >= kMaxMemory) {
       dumpIndex();
-      cout<<"Run finished. Dumping data"<<endl;
-      keyword_vector_.clear();
-      keyword_vector_.shrink_to_fit();
-      number_of_documents = 0;
+      cout<<"Run finished. Dumping data with "<<keyword_vector_.size()<<" documents"<<endl;
+      vector<tuple<unsigned int, unsigned int, unsigned int> >().swap(keyword_vector_);
     }
     
     data = doc.getText();
@@ -61,10 +60,9 @@ Indexer::Indexer(string input_directory,string input_collection_index){
     updateVocabulary(reading_page.keywords());
     addKeywordsToArray(reading_page.keywords(), reading_page.id());
     doc.clear();
-    keyword_vector_.shrink_to_fit();
   }
   dumpIndex();
-  keyword_vector_.shrink_to_fit();
+  vector<tuple<unsigned int, unsigned int, unsigned int> >().swap(keyword_vector_);
   cout<<"Finished reading documents"<<endl;
   doc.clear();
   url.clear();
@@ -85,8 +83,8 @@ void Indexer::updateVocabulary(unordered_map<string, uInt> words){
     }
   }
 }
-//
-////Iterate over every word on vocabulary and write it as <word, id, frequency>
+
+//Iterate over every word on vocabulary and write it as <word, id, frequency>
 void Indexer::dumpVocabulary(){
   cout<<"Dumping Vocabulary"<<endl;
   cout<<"Vocabulary Size: "<<vocabulary_.size()<<endl;
@@ -115,9 +113,8 @@ void Indexer::addKeywordsToArray(const unordered_map<string, uInt> &k, uInt doci
     keyword_vector_.push_back(make_tuple(keywordId, docid, it->second));
   }
 }
-//
-//
-////Tuples are written as <word_id, doc_id, frequency>
+
+//Tuples are written as <word_id, doc_id, frequency>
 void Indexer::dumpIndex(){
   cout<<"Dumping Index"<<endl;
   stringstream strstream;
