@@ -1,16 +1,16 @@
 //
 //  main.cpp
 //  indexer
-//c
+//
 //  Created by Arthur Câmara on 9/3/15.
 //  Copyright (c) 2015 DCC UFMG. All rights reserved.
 //
 
 #include <iostream>
-#include "CollectionReader.h"
-#include <html/ParserDom.h>
 #include <ctime>
 #include "Indexer.h"
+#include "CollectionReader.h"
+
 
 using namespace std;
 using namespace htmlcxx;
@@ -42,7 +42,7 @@ int main(int argc, const char * argv[]) {
   }
   
   assert(input_directory.length() != 0);
-  assert(input_collection_index. length() != 0);
+  assert(input_collection_index.length() != 0);
   
   clock_t begin = clock();
   Indexer indexer(input_directory, input_collection_index);
