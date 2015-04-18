@@ -21,7 +21,7 @@ using namespace std;
 class Page{
   string url_;
   string data_;
-  string text_;
+  string text_ ;
   string title_;
   string description_;
   uint id_;
