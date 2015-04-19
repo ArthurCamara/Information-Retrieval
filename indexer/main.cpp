@@ -19,11 +19,8 @@ int main(int argc, const char * argv[]) {
   
   string input_collection_index;
   string input_directory;
+  bool is_retrieval=false;
   
-  if(argc<5){
-    cout<<"Parameters missing"<<endl;
-    return 0;
-  }
   
   //Arguments parsing
   for(unsigned i =1; i< argc; ++i) {
@@ -34,9 +31,12 @@ int main(int argc, const char * argv[]) {
       input_collection_index = argv[i];
     }
     //index file path
-    else if (param == "--directory" || "-d") {
+    else if (param == "--directory" || param == "-d") {
       i++;
       input_directory = argv[i];
+    }
+    else if (param == "--retrieval" || param == "-r") {
+      is_retrieval = true;
     }
   
   }

@@ -7,13 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8E2F475B1AE3197B00ECD6E3 /* QueryProcessing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8E2F47591AE3197B00ECD6E3 /* QueryProcessing.cpp */; };
 		8E3E1FEB1ABB509A00F02507 /* Indexer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8E3E1FE91ABB509A00F02507 /* Indexer.cpp */; };
 		8E4AF1521AADDBDB003D9F79 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8E4AF1511AADDBDB003D9F79 /* main.cpp */; };
 		8E5AADA31AE2CE4A00493189 /* Page.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8E5AADA11AE2CE4A00493189 /* Page.cpp */; };
 		8E5AADA51AE2D72200493189 /* libgumbo.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E5AADA41AE2D72200493189 /* libgumbo.1.dylib */; };
-		8EBBFD281AB140A40000150E /* libhtmlcxx.3.1.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EBBFD251AB140A40000150E /* libhtmlcxx.3.1.0.dylib */; };
-		8EBBFD291AB140A40000150E /* libhtmlcxx.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EBBFD261AB140A40000150E /* libhtmlcxx.3.dylib */; };
-		8EBBFD2A1AB140A40000150E /* libhtmlcxx.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EBBFD271AB140A40000150E /* libhtmlcxx.dylib */; };
 		8EC916481AB11B3500D7CC98 /* CollectionReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8EC9163D1AB11AC900D7CC98 /* CollectionReader.cpp */; };
 		8EC9164A1AB11B3500D7CC98 /* CollectionWriter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8EC9163F1AB11AC900D7CC98 /* CollectionWriter.cpp */; };
 		8EC9164C1AB11B3500D7CC98 /* Document.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8EC916411AB11AC900D7CC98 /* Document.cpp */; };
@@ -33,6 +31,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		8E2F47591AE3197B00ECD6E3 /* QueryProcessing.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = QueryProcessing.cpp; path = ../QueryProcessing.cpp; sourceTree = "<group>"; };
+		8E2F475A1AE3197B00ECD6E3 /* QueryProcessing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QueryProcessing.h; path = ../QueryProcessing.h; sourceTree = "<group>"; };
 		8E3E1FE91ABB509A00F02507 /* Indexer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Indexer.cpp; sourceTree = "<group>"; };
 		8E3E1FEA1ABB509A00F02507 /* Indexer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Indexer.h; sourceTree = "<group>"; };
 		8E4AF1511AADDBDB003D9F79 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
@@ -40,9 +40,6 @@
 		8E5AADA21AE2CE4A00493189 /* Page.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Page.h; sourceTree = "<group>"; };
 		8E5AADA41AE2D72200493189 /* libgumbo.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libgumbo.1.dylib; sourceTree = "<group>"; };
 		8EBBFD1C1AB13ECD0000150E /* indexer */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = indexer; sourceTree = BUILT_PRODUCTS_DIR; };
-		8EBBFD251AB140A40000150E /* libhtmlcxx.3.1.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libhtmlcxx.3.1.0.dylib; sourceTree = "<group>"; };
-		8EBBFD261AB140A40000150E /* libhtmlcxx.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libhtmlcxx.3.dylib; sourceTree = "<group>"; };
-		8EBBFD271AB140A40000150E /* libhtmlcxx.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libhtmlcxx.dylib; sourceTree = "<group>"; };
 		8EC9163A1AB11AC900D7CC98 /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
 		8EC9163C1AB11AC900D7CC98 /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
 		8EC9163D1AB11AC900D7CC98 /* CollectionReader.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CollectionReader.cpp; sourceTree = "<group>"; };
@@ -64,10 +61,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8EC916501AB11D5600D7CC98 /* libz.dylib in Frameworks */,
-				8EBBFD2A1AB140A40000150E /* libhtmlcxx.dylib in Frameworks */,
-				8EBBFD281AB140A40000150E /* libhtmlcxx.3.1.0.dylib in Frameworks */,
 				8E5AADA51AE2D72200493189 /* libgumbo.1.dylib in Frameworks */,
-				8EBBFD291AB140A40000150E /* libhtmlcxx.3.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -80,9 +74,6 @@
 				8E5AADA41AE2D72200493189 /* libgumbo.1.dylib */,
 				8EC916381AB11AC900D7CC98 /* Reader */,
 				8EC9164F1AB11D5600D7CC98 /* libz.dylib */,
-				8EBBFD251AB140A40000150E /* libhtmlcxx.3.1.0.dylib */,
-				8EBBFD261AB140A40000150E /* libhtmlcxx.3.dylib */,
-				8EBBFD271AB140A40000150E /* libhtmlcxx.dylib */,
 			);
 			name = lib;
 			sourceTree = "<group>";
@@ -99,6 +90,8 @@
 		8E4AF1501AADDBDB003D9F79 /* indexer */ = {
 			isa = PBXGroup;
 			children = (
+				8E2F47591AE3197B00ECD6E3 /* QueryProcessing.cpp */,
+				8E2F475A1AE3197B00ECD6E3 /* QueryProcessing.h */,
 				8E5AADA11AE2CE4A00493189 /* Page.cpp */,
 				8E5AADA21AE2CE4A00493189 /* Page.h */,
 				8E3E1FE91ABB509A00F02507 /* Indexer.cpp */,
@@ -210,6 +203,7 @@
 			files = (
 				8E3E1FEB1ABB509A00F02507 /* Indexer.cpp in Sources */,
 				8EC916481AB11B3500D7CC98 /* CollectionReader.cpp in Sources */,
+				8E2F475B1AE3197B00ECD6E3 /* QueryProcessing.cpp in Sources */,
 				8EC9164A1AB11B3500D7CC98 /* CollectionWriter.cpp in Sources */,
 				8EC9164C1AB11B3500D7CC98 /* Document.cpp in Sources */,
 				8E5AADA31AE2CE4A00493189 /* Page.cpp in Sources */,

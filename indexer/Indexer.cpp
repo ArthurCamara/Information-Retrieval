@@ -50,7 +50,7 @@ Indexer::Indexer(string input_directory,string input_collection_index){
     //Memory is off-limit. Dump and clear everything. 1 extra document for safety
     if (space_occupied_by_vector_ >= kMaxMemory) {
       dumpIndex();
-      cout<<"Run finished. Dumping data with "<<keyword_vector_.size()<<" documents"<<endl;
+      cout<<"Run "<<number_of_runs_<<" finished. Dumping data."<<endl;
       vector<tuple<unsigned int, unsigned int, unsigned int> >().swap(keyword_vector_);
     }
     
@@ -116,6 +116,7 @@ void Indexer::addKeywordsToArray(const unordered_map<string, uInt> &k, uInt doci
 
 //Tuples are written as <word_id, doc_id, frequency>
 void Indexer::dumpIndex(){
+  number_of_runs_++;
   cout<<"Dumping Index"<<endl;
   stringstream strstream;
   string nrun;
@@ -135,6 +136,7 @@ void Indexer::dumpIndex(){
     fwrite(&docId, sizeof(uInt), 1, fp);
     fwrite(&freq, sizeof(uInt), 1, fp);
   }
+  cout<<"Closing file index"<<nrun<<".txt"<<endl;
   fclose(fp);
 }
 
