@@ -133,7 +133,7 @@ bool CollectionWriter::getNextDocument(Document & doc) {
 	int contentSize = endOffset - beginOffset;
 
 	content = new char[contentSize + 1];
-	int nchars = fread(content, sizeof(char), contentSize, inputContentFilePtr_);
+	size_t nchars = fread(content, sizeof(char), contentSize, inputContentFilePtr_);
 	assert(nchars == contentSize);
 	content[contentSize] = '\0';
 
