@@ -13,17 +13,18 @@
 
 
 using namespace std;
-using namespace htmlcxx;
 
 int main(int argc, const char * argv[]) {
   
+  cout<<argv[0]<<endl;
   string input_collection_index;
   string input_directory;
   bool is_retrieval=false;
+  bool is_merge = false;
   
   
   //Arguments parsing
-  for(unsigned i =1; i< argc; ++i) {
+  for(unsigned i = 1; i < argc; ++i) {
     string param  = argv[i];
     //index file name
     if(param == "--index" || param == "-i") {
@@ -38,19 +39,23 @@ int main(int argc, const char * argv[]) {
     else if (param == "--retrieval" || param == "-r") {
       is_retrieval = true;
     }
+    else if (param == "--merge" || param == "-m"){
+      is_merge = true;
+    }
   
   }
-  
-  assert(input_directory.length() != 0);
-  assert(input_collection_index.length() != 0);
-  
   clock_t begin = clock();
-  Indexer indexer(input_directory, input_collection_index);
+  if(is_merge){
+    Indexer indexer(input_directory, input_collection_index, is_merge);
+  }
+  else {
+    Indexer indexer(input_directory, input_collection_index);
+  }
   clock_t end = clock();
 
   double elapsed_seconds = double (end-begin)/CLOCKS_PER_SEC;
-  
+
   cout<<elapsed_seconds<<"s"<<endl;
-  
+
   return 0;
 }
