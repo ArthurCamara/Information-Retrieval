@@ -1,4 +1,4 @@
 /build/
 */xcuserdata/
 *.xcodeproj
-*/.DS_Store
+.DS_Store
