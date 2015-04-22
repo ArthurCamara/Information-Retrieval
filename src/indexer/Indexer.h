@@ -44,15 +44,17 @@ struct mySort {
 class Indexer{
 private:
   //Reading
-  uint number_of_documents;
+  uint number_of_documents_;
   uint number_of_runs_;
   size_t space_occupied_by_vector_;
   string input_directory_;
   string input_collection_index_;
   vector<tuple<uint, uint, uint> > keyword_vector_;
+  unordered_map<uint, string> pagesIds_;
   void dumpIndex();
   void addKeywordsToKeywordVector(const unordered_map<string, uint>&,
                                   uint docid);
+  void dumpPages();
 
   
   //Vocabulary

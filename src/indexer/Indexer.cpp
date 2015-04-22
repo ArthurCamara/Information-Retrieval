@@ -25,7 +25,7 @@ Indexer::Indexer(string input_directory,
                  bool merge){
   
   vocabulary_size_ = 0;
-  number_of_documents = 0;
+  number_of_documents_ = 0;
   number_of_runs_ = 0;
   number_of_writes_on_merge = 0;
   space_occupied_by_vector_ = sizeof(vector<tuple<uint, uint, uint> >);
@@ -53,11 +53,11 @@ Indexer::Indexer(string input_directory,
   
   while(reader->getNextDocument(doc)) {
     
-    number_of_documents++;
+    number_of_documents_++;
     space_occupied_by_vector_ = keyword_vector_.size()*sizeof(tuple<uInt, uInt, uInt>) + sizeof(vector<tuple<uInt, uInt, uInt> >);
     
-    if(number_of_documents%10000 == 0) {
-      cout<<number_of_documents<<" indexed"<<endl;
+    if(number_of_documents_%10000 == 0) {
+      cout<<number_of_documents_<<" indexed"<<endl;
       cout<<"Using "<<space_occupied_by_vector_<<"B of memory"<<endl;
     }
     
@@ -71,7 +71,10 @@ Indexer::Indexer(string input_directory,
     
     data = doc.getText();
     url = doc.getURL();
-    Page reading_page = Page(data, url, number_of_documents);
+    
+    pagesIds_[number_of_documents_]=url;
+    
+    Page reading_page = Page(data, url, number_of_documents_);
     updateVocabulary(reading_page.keywords());
     addKeywordsToKeywordVector(reading_page.keywords(), reading_page.id());
     doc.clear();
@@ -156,6 +159,16 @@ void Indexer::dumpIndex(){
   
   fclose(fp);
   number_of_runs_++;
+}
+
+void Indexer::dumpPages(){
+  FILE* fp = fopen("pagesIds.txt", "wb");
+  string str="";
+  for(auto it = pagesIds_.begin(); it!=pagesIds_.end(); ++it) {
+    str += to_string(it->first)+" "+it->second+"\n";
+  }
+  fwrite(str.data(), str.length(), sizeof(char), fp);
+  fclose(fp);
 }
 
 void Indexer::Merge(){
