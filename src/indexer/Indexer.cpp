@@ -31,12 +31,11 @@ Indexer::Indexer(string input_directory,
   space_occupied_by_vector_ = sizeof(vector<tuple<uint, uint, uint> >);
   input_directory_  = input_directory;
   input_collection_index_ = input_collection_index;
-  
   string data, url;
   RICPNS::Document doc;
   
   if(merge) {
-    number_of_runs_ = 71;
+    number_of_runs_ = 69;
     Merge();
     return;
   }
@@ -65,10 +64,7 @@ Indexer::Indexer(string input_directory,
     if (space_occupied_by_vector_ >= kMaxMemory) {
       dumpIndex();
       cout<<"Run "<<number_of_runs_<<" finished. Dumping data."<<endl;
-      //(way) Faster than shrink_to_fit
-      vector<tuple<unsigned int, unsigned int, unsigned int> >().swap(keyword_vector_);
     }
-    
     data = doc.getText();
     url = doc.getURL();
     
@@ -81,12 +77,13 @@ Indexer::Indexer(string input_directory,
   }
   
   dumpIndex();
-  vector<tuple<unsigned int, unsigned int, unsigned int> >().swap(keyword_vector_);
+//  vector<tuple<unsigned int, unsigned int, unsigned int> >().swap(keyword_vector_);
   cout<<"Finished reading documents"<<endl;
   doc.clear();
   url.clear();
   delete reader;
   dumpVocabulary();
+  dumpPages();
   Merge();
 }
 
@@ -110,8 +107,8 @@ void Indexer::dumpVocabulary(){
   vocabulary_file_ = fopen("vocabulary.bin", "wb");
   string wordid, frequency;
   stringstream strstream;
-  string str;
-
+  string str="";
+  
   for (auto it = vocabulary_.begin(); it!= vocabulary_.end(); ++it) {
     strstream<<it->second.first;
     strstream>>wordid;
@@ -119,9 +116,9 @@ void Indexer::dumpVocabulary(){
     strstream<<it->second.second;
     strstream>>frequency;
     strstream.clear();
-    str = it->first + "," + wordid +"," + frequency+"\n";
-    fwrite(str.c_str(), 1, str.length(), vocabulary_file_);
+    str += it->first + "," + wordid +"," + frequency+"\n";
   }
+  fwrite(str.c_str(), sizeof(char), str.length(), vocabulary_file_);
   fclose(vocabulary_file_);
 }
 
@@ -129,7 +126,9 @@ void Indexer::dumpVocabulary(){
 void Indexer::addKeywordsToKeywordVector(const unordered_map<string, uInt> &k, uInt docid){
   for(auto it = k.begin(); it!=k.end(); ++it){
     uint keywordId = vocabulary_[it->first].first;
-    keyword_vector_.push_back(make_tuple(keywordId, docid, it->second));
+    tuple<uint, uint, uint> aux =  make_tuple(1, 1, 4);
+    tuple<uint, uint, uint> aux2= make_tuple(keywordId, docid, it->second);
+    keyword_vector_.push_back(aux2);
   }
 }
 
@@ -141,7 +140,7 @@ void Indexer::dumpIndex(){
   strstream<<number_of_runs_;
   strstream>>nrun;
   uint buffer[3];
-  
+
   //Sort keywords
   sort(keyword_vector_.begin(), keyword_vector_.end(), mySort());
   
@@ -149,14 +148,13 @@ void Indexer::dumpIndex(){
   string filename = "index"+nrun+".txt";
   FILE* fp;
   fp = fopen(filename.c_str(), "wb");
-  
   for (auto it = keyword_vector_.begin(); it!= keyword_vector_.end(); ++it){
     buffer[0] = get<0>(*it);
     buffer[1] = get<1>(*it);
     buffer[2] = get<2>(*it);
     fwrite(buffer, sizeof(uint), 3, fp);
   }
-  
+  vector<tuple<uint, uint, uint> >().swap(keyword_vector_);
   fclose(fp);
   number_of_runs_++;
 }
@@ -175,7 +173,8 @@ void Indexer::Merge(){
   cout<<"External sorting with "<<number_of_runs_<<" runs"<<endl;
   
   uint midbuff[3];
-  vector<FILE*> runs;
+  memset(midbuff, 3, sizeof(uint));
+
   tuple<uInt, uInt, uInt, uInt> top_element;
   stringstream strstream;
   string nrun;
@@ -190,14 +189,15 @@ void Indexer::Merge(){
   index_file_ = fopen("index.bin", "wb");
 
   //Initial heap fill
+  vector<shared_ptr<ifstream> > runs2;
+  vector<uint>mdb(3);
   for (uInt  i = 0; i<number_of_runs_+1; ++i){
-    strstream<<i;
-    strstream>>nrun;
-    name_of_file = "index"+nrun+".txt";
-    FILE* reader = fopen(name_of_file.c_str(), "rb");
-    runs.push_back(reader);
+    ostringstream filename;
+    filename<<"index"<<i<<".txt";
+    unique_ptr<ifstream> file(new ifstream(filename.str(), ios::binary|ios::in));
+    runs2.push_back(move(file));
     for(uint it = 0; it<size_of_blocks; it+=3) {
-      fread(midbuff, sizeof(uint), 3, reader);
+      runs2[i]->read(reinterpret_cast<char*>(midbuff), sizeof(uint)*3);
       heap_.push(make_tuple(midbuff[0],
                 midbuff[1],
                 midbuff[2], i));
@@ -211,6 +211,7 @@ void Indexer::Merge(){
     midbuff[0]  = get<0>(top_element);
     midbuff[1]  = get<1>(top_element);
     midbuff[2]  = get<2>(top_element);
+//    cout<<get<0>(top_element)<<" "<<get<1>(top_element)<<" "<<get<2>(top_element)<<" "<<get<3>(top_element)<<endl;
     removed_from = get<3>(top_element);
     buff_.push_back(midbuff[0]);
     buff_.push_back(midbuff[1]);
@@ -222,8 +223,11 @@ void Indexer::Merge(){
       buff_.clear();
     }
     //REINSERT ELEMENT INTO HEAP from the same file
-    if(!feof(runs[removed_from])) {
-      fread(midbuff, sizeof(uint), 3, runs[removed_from]);
+    if(!runs2[removed_from]->eof() && !runs2[removed_from]->bad()) {
+      if(number_of_writes_on_merge>69){
+        cout<<removed_from<<endl;
+      }
+      runs2[removed_from]->read(reinterpret_cast<char*>(midbuff), sizeof(uint)*3);
       heap_.push(make_tuple(midbuff[0], midbuff[1], midbuff[2], removed_from));
     }
   }

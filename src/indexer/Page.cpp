@@ -9,6 +9,8 @@
 #include "Page.h"
 #include <gumbo.h>
 #include <boost/tokenizer.hpp>
+//#include <boost/locale/util.hpp>
+//#include <boost/locale.hpp>
 #include <boost/foreach.hpp>
 
 static inline std::string &ltrim(std::string &s) {
@@ -65,7 +67,7 @@ string Page::cleanText(GumboNode *node) {
 }
 void Page::generate_keywords(string clearText){
   using namespace boost;
-  char_separator<char> sep(", !?:;\"'`.()[]{}-_<>~|\\/\n\t");
+  char_separator<char> sep(" , \b!?:;\"'`.()[]{}-_<>~|\\/\n\t*");
   tokenizer<char_separator<char>> tokens(clearText, sep);
   BOOST_FOREACH(const string&t, tokens){
     string str = t;

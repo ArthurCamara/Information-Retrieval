@@ -55,6 +55,8 @@ private:
   void addKeywordsToKeywordVector(const unordered_map<string, uint>&,
                                   uint docid);
   void dumpPages();
+  vector<tuple<uint, uint, uint> > test_;
+
 
   
   //Vocabulary

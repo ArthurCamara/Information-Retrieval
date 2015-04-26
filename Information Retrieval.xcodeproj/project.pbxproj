@@ -15,6 +15,7 @@
 		8EF69ADA1AE70200000521C7 /* CollectionReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8EF69AD31AE70200000521C7 /* CollectionReader.cpp */; };
 		8EF69ADB1AE70200000521C7 /* CollectionWriter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8EF69AD51AE70200000521C7 /* CollectionWriter.cpp */; };
 		8EF69ADC1AE70200000521C7 /* Document.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8EF69AD71AE70200000521C7 /* Document.cpp */; };
+		8EF69ADF1AE7C1C1000521C7 /* QueryProcessing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8EF69ADD1AE7C1C1000521C7 /* QueryProcessing.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -32,7 +33,7 @@
 /* Begin PBXFileReference section */
 		8E3E1FE91ABB509A00F02507 /* Indexer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Indexer.cpp; sourceTree = "<group>"; };
 		8E3E1FEA1ABB509A00F02507 /* Indexer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Indexer.h; sourceTree = "<group>"; };
-		8E4AF1511AADDBDB003D9F79 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		8E4AF1511AADDBDB003D9F79 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = ../main.cpp; sourceTree = "<group>"; };
 		8E5AADA21AE2CE4A00493189 /* Page.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Page.h; sourceTree = "<group>"; };
 		8EBBFD1C1AB13ECD0000150E /* Information Retrieval */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Information Retrieval"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8EC5DE361AE6F95A005869EF /* libgumbo.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libgumbo.1.dylib; path = lib/libgumbo.1.dylib; sourceTree = "<group>"; };
@@ -45,6 +46,8 @@
 		8EF69AD71AE70200000521C7 /* Document.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Document.cpp; sourceTree = "<group>"; };
 		8EF69AD81AE70200000521C7 /* Document.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Document.h; sourceTree = "<group>"; };
 		8EF69AD91AE70200000521C7 /* envDefault.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = envDefault.h; sourceTree = "<group>"; };
+		8EF69ADD1AE7C1C1000521C7 /* QueryProcessing.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = QueryProcessing.cpp; sourceTree = "<group>"; };
+		8EF69ADE1AE7C1C1000521C7 /* QueryProcessing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QueryProcessing.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +66,8 @@
 		8E1BB2AD1AE6FF57005F3326 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				8E4AF1511AADDBDB003D9F79 /* main.cpp */,
+				8EF69AE01AE7C1FB000521C7 /* QueryProcessing */,
 				8E4AF1501AADDBDB003D9F79 /* indexer */,
 			);
 			path = src;
@@ -94,7 +99,6 @@
 				8E5AADA21AE2CE4A00493189 /* Page.h */,
 				8E3E1FE91ABB509A00F02507 /* Indexer.cpp */,
 				8E3E1FEA1ABB509A00F02507 /* Indexer.h */,
-				8E4AF1511AADDBDB003D9F79 /* main.cpp */,
 			);
 			path = indexer;
 			sourceTree = "<group>";
@@ -112,6 +116,15 @@
 			);
 			name = RiCode;
 			path = lib/RiCode;
+			sourceTree = "<group>";
+		};
+		8EF69AE01AE7C1FB000521C7 /* QueryProcessing */ = {
+			isa = PBXGroup;
+			children = (
+				8EF69ADD1AE7C1C1000521C7 /* QueryProcessing.cpp */,
+				8EF69ADE1AE7C1C1000521C7 /* QueryProcessing.h */,
+			);
+			path = QueryProcessing;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -172,6 +185,7 @@
 			files = (
 				8EF69ADA1AE70200000521C7 /* CollectionReader.cpp in Sources */,
 				8EF69AD11AE700CE000521C7 /* Page.cpp in Sources */,
+				8EF69ADF1AE7C1C1000521C7 /* QueryProcessing.cpp in Sources */,
 				8EF69ADC1AE70200000521C7 /* Document.cpp in Sources */,
 				8E3E1FEB1ABB509A00F02507 /* Indexer.cpp in Sources */,
 				8E4AF1521AADDBDB003D9F79 /* main.cpp in Sources */,
