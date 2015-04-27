@@ -2,3 +2,6 @@
 */xcuserdata/
 *.xcodeproj
 .DS_Store
+*.txt
+tp1ri
+*.o

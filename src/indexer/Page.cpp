@@ -9,8 +9,6 @@
 #include "Page.h"
 #include <gumbo.h>
 #include <boost/tokenizer.hpp>
-//#include <boost/locale/util.hpp>
-//#include <boost/locale.hpp>
 #include <boost/foreach.hpp>
 
 static inline std::string &ltrim(std::string &s) {

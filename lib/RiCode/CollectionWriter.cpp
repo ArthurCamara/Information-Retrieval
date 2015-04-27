@@ -5,7 +5,7 @@
 
 #include "CollectionWriter.h"
 
-#include "zlib.h"
+#include <zlib.h>
 #include <cassert>
 #include <iostream>
 #include <sstream>

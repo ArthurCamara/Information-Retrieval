@@ -35,7 +35,7 @@ Indexer::Indexer(string input_directory,
   RICPNS::Document doc;
   
   if(merge) {
-    number_of_runs_ = 69;
+    number_of_runs_ = 70;
     Merge();
     return;
   }
@@ -126,7 +126,6 @@ void Indexer::dumpVocabulary(){
 void Indexer::addKeywordsToKeywordVector(const unordered_map<string, uInt> &k, uInt docid){
   for(auto it = k.begin(); it!=k.end(); ++it){
     uint keywordId = vocabulary_[it->first].first;
-    tuple<uint, uint, uint> aux =  make_tuple(1, 1, 4);
     tuple<uint, uint, uint> aux2= make_tuple(keywordId, docid, it->second);
     keyword_vector_.push_back(aux2);
   }
@@ -191,7 +190,7 @@ void Indexer::Merge(){
   //Initial heap fill
   vector<shared_ptr<ifstream> > runs2;
   vector<uint>mdb(3);
-  for (uInt  i = 0; i<number_of_runs_+1; ++i){
+  for (uInt  i = 0; i<number_of_runs_; ++i){
     ostringstream filename;
     filename<<"index"<<i<<".txt";
     unique_ptr<ifstream> file(new ifstream(filename.str(), ios::binary|ios::in));

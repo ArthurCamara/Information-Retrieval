@@ -16,7 +16,7 @@
 #include <stdio.h>
 #include <tuple>
 #include <queue>
-#include "CollectionReader.h"
+#include "../../lib/RiCode/CollectionReader.h"
 
 typedef unsigned uInt;
 

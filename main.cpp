@@ -9,8 +9,8 @@
 #include <iostream>
 #include <ctime>
 #include <fstream>
-#include "Indexer.h"
-#include "QueryProcessing.h"
+#include "src/indexer/Indexer.h"
+#include "src/QueryProcessing/QueryProcessing.h"
 
 
 using namespace std;
@@ -18,10 +18,9 @@ using namespace std;
 int main(int argc, const char * argv[]) {
   std::ios::sync_with_stdio(false);
   
-  ifstream arq(getenv("MYARQ"));
-  cin.rdbuf(arq.rdbuf());
+//  ifstream arq(getenv("MYARQ"));
+//  cin.rdbuf(arq.rdbuf());
   
-  cout<<argv[0]<<endl;
   string input_collection_index;
   string input_directory;
   string query;
