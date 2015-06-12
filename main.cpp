@@ -11,27 +11,37 @@
 #include <fstream>
 #include "src/indexer/Indexer.h"
 #include "src/QueryProcessing/QueryProcessing.h"
+#include "Ranking/page_rank.h"
+#include "www/server_http.hpp"
+#include "www/client_http.hpp"
 
+#define BOOST_SPIRIT_THREADSAFE
+#include <boost/property_tree/ptree.hpp>
+#include <boost/property_tree/json_parser.hpp>
 
 using namespace std;
+using namespace boost::property_tree;
+
+typedef SimpleWeb::Server<SimpleWeb::HTTP> HttpServer;
+typedef SimpleWeb::Client<SimpleWeb::HTTP> HttpClient;
+
+
 
 int main(int argc, const char * argv[]) {
   std::ios::sync_with_stdio(false);
-  
-//  ifstream arq(getenv("MYARQ"));
-//  cin.rdbuf(arq.rdbuf());
-  
   string input_collection_index;
   string input_directory;
   string query;
-  bool is_retrieval=false;
+  bool is_retrieval = false;
   bool is_merge = false;
+  bool is_indexer = false;
   
   //Arguments parsing
   for(unsigned i = 1; i < argc; ++i) {
     string param  = argv[i];
     //index file name
     if(param == "--index" || param == "-i") {
+      is_indexer = true;
       i++;
       input_collection_index = argv[i];
     }
@@ -49,11 +59,10 @@ int main(int argc, const char * argv[]) {
     else if (param == "--retrieval" || param == "--r"){
       is_retrieval = true;
     }
-  
   }
-  clock_t begin = clock();
   if(is_merge){
     Indexer indexer(input_directory, input_collection_index, is_merge);
+    return 0;
   }
   else if(is_retrieval){
     QueryProcessing q;
@@ -61,15 +70,46 @@ int main(int argc, const char * argv[]) {
       cout<<"Lookout for query "<<query<<endl;
       q.retrieve(query);
     }
+    return 0;
   }
-  else {
+  else if(is_indexer){
     Indexer indexer(input_directory, input_collection_index);
+    return 0;
   }
-  clock_t end = clock();
-
-  double elapsed_seconds = double (end-begin)/CLOCKS_PER_SEC;
-
-  cout<<elapsed_seconds<<"s"<<endl;
+  //Begin server
+  
+  cout<<"Initializing Server..."<<endl;
+  string indexFileName = "index.bin";
+  string anchorFileName = "anchor.bin";
+  string linksFileName = "links.txt";
+//  QueryProcessing q;
+  PageRank pr(linksFileName);
+  
+  HttpServer server(8080, 4);
+  cout<<"Waiting for requests"<<endl;
+  server.resource["^/search$"]["POST"]=[](HttpServer::Response& response, std::shared_ptr<HttpServer::Request> request) {
+    try {
+      //Retrieve string from istream (request->content)
+      ptree pt;
+      read_json(request->content, pt);
+      
+//      bool vectorModel = pt.get<bool>("vms");
+//      bool anchorText = pt.get<bool>("at");
+//      bool pageRank = pt.get<bool>("pr");
+//      int page = pt.get<int>("page");
+      string query = pt.get<string>("query");
+      
+//      string result = search(query, vectorModel, pageRank, anchorText, page);
+//      result = minify(result);
+      string result = "bla";
+      response << "HTTP/1.1 200 OK\r\nContent-Length: " << result.length() << "\r\nAccess-Control-Allow-Origin: *" << "\r\nContent-Type: \"application/json\"" << "\r\n\r\n" << result;
+    }
+    catch(std::exception& e) {
+      response << "HTTP/1.1 400 Bad Request\r\nContent-Length: " << strlen(e.what()) << "\r\n\r\n" << e.what();
+    }
+  };
+  
+  
 
   return 0;
 }

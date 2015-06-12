@@ -5,9 +5,9 @@ CPPFLAGS := -DUSE_BOOST
 
 CFLAGS := -Wall -O3
 
-CXXFLAGS += -Wall -O3 -std=c++11
+CXXFLAGS += -Wall -O3 -std=c++14
 
-LDFLAGS  += -g `pkg-config --cflags --libs gumbo` -L/opt/lib -lz
+LDFLAGS  += -g `pkg-config --cflags --libs gumbo htmlcxx` -L/usr/local/lib -lz
 
 CXX := g++
 
@@ -30,9 +30,9 @@ BOOST_LDFLAGS := $(addprefix -lboost_,$(BOOST_MODULES_LIBS))
 CPPFLAGS += $(BOOST_CPPFLAGS)
 LDFLAGS += $(BOOST_LDFLAGS)
 
-SOURCES = $(wildcard *.cpp) $(wildcard src/indexer/*.cpp) $(wildcard src/QueryProcessing/*.cpp) $(wildcard lib/RiCode/*.cpp)
+SOURCES = $(wildcard *.cpp) $(wildcard src/indexer/*.cpp) $(wildcard src/QueryProcessing/*.cpp) $(wildcard lib/RiCode/*.cpp) $(wildcard www/*.cpp) $(wildcard src/Ranking/*.cpp)
 
-HEADERS = $(wildcard %.h)
+HEADERS = $(wildcard %.h) $(wildcard %.hpp)
 
 OBJECTS = $(SOURCES:%.cpp=%.o)
 
@@ -43,7 +43,7 @@ $(PROGNAME) : $(OBJECTS) Makefile
 
 %.o: %.cpp $(HEADERS) Makefile
 	$(CXX) $(CXXFLAGS) $(CPPFLAGS) -c $(OUTPUT_OPTION) $<
-				
+
 clean :
 	@echo "Clean."
 	-rm -f *.o $(PROGNAME)

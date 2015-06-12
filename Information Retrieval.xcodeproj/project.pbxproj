@@ -7,10 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8E3795E11B1E2A6F005D4BE5 /* libhtmlcxx.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E3795E01B1E2A6F005D4BE5 /* libhtmlcxx.dylib */; };
 		8E3E1FEB1ABB509A00F02507 /* Indexer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8E3E1FE91ABB509A00F02507 /* Indexer.cpp */; };
+		8E46592B1B2B16C700EB71C4 /* page_rank.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8E4659291B2B16C700EB71C4 /* page_rank.cpp */; };
+		8E46592E1B2B2DA600EB71C4 /* Retriever.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8E46592C1B2B2DA600EB71C4 /* Retriever.cpp */; };
 		8E4AF1521AADDBDB003D9F79 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8E4AF1511AADDBDB003D9F79 /* main.cpp */; };
 		8EC5DE371AE6F95A005869EF /* libgumbo.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EC5DE361AE6F95A005869EF /* libgumbo.1.dylib */; };
 		8EC916501AB11D5600D7CC98 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EC9164F1AB11D5600D7CC98 /* libz.dylib */; };
+		8EF279C01B2B8940009412DF /* libboost_system.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EF279BF1B2B8940009412DF /* libboost_system.dylib */; };
+		8EF279C21B2B8B1B009412DF /* libboost_coroutine.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EF279C11B2B8B1B009412DF /* libboost_coroutine.dylib */; };
+		8EF279C41B2B93E3009412DF /* libboost_thread-mt.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EF279C31B2B93E3009412DF /* libboost_thread-mt.dylib */; };
 		8EF69AD11AE700CE000521C7 /* Page.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8EF69AD01AE700CE000521C7 /* Page.cpp */; };
 		8EF69ADA1AE70200000521C7 /* CollectionReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8EF69AD31AE70200000521C7 /* CollectionReader.cpp */; };
 		8EF69ADB1AE70200000521C7 /* CollectionWriter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8EF69AD51AE70200000521C7 /* CollectionWriter.cpp */; };
@@ -31,13 +37,23 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		8E3795E01B1E2A6F005D4BE5 /* libhtmlcxx.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libhtmlcxx.dylib; sourceTree = "<group>"; };
 		8E3E1FE91ABB509A00F02507 /* Indexer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Indexer.cpp; sourceTree = "<group>"; };
 		8E3E1FEA1ABB509A00F02507 /* Indexer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Indexer.h; sourceTree = "<group>"; };
+		8E4659291B2B16C700EB71C4 /* page_rank.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = page_rank.cpp; path = src/Ranking/page_rank.cpp; sourceTree = "<group>"; };
+		8E46592A1B2B16C700EB71C4 /* page_rank.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = page_rank.h; path = src/Ranking/page_rank.h; sourceTree = "<group>"; };
+		8E46592C1B2B2DA600EB71C4 /* Retriever.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Retriever.cpp; path = src/Ranking/Retriever.cpp; sourceTree = "<group>"; };
+		8E46592D1B2B2DA600EB71C4 /* Retriever.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Retriever.h; path = src/Ranking/Retriever.h; sourceTree = "<group>"; };
 		8E4AF1511AADDBDB003D9F79 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = ../main.cpp; sourceTree = "<group>"; };
 		8E5AADA21AE2CE4A00493189 /* Page.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Page.h; sourceTree = "<group>"; };
 		8EBBFD1C1AB13ECD0000150E /* Information Retrieval */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Information Retrieval"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8EC5DE361AE6F95A005869EF /* libgumbo.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libgumbo.1.dylib; path = lib/libgumbo.1.dylib; sourceTree = "<group>"; };
 		8EC9164F1AB11D5600D7CC98 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		8EF279B91B2B5250009412DF /* client_http.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = client_http.hpp; path = www/client_http.hpp; sourceTree = "<group>"; };
+		8EF279BA1B2B5250009412DF /* server_http.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = server_http.hpp; path = www/server_http.hpp; sourceTree = "<group>"; };
+		8EF279BF1B2B8940009412DF /* libboost_system.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libboost_system.dylib; path = ../../../../../../../usr/local/lib/libboost_system.dylib; sourceTree = "<group>"; };
+		8EF279C11B2B8B1B009412DF /* libboost_coroutine.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libboost_coroutine.dylib; sourceTree = "<group>"; };
+		8EF279C31B2B93E3009412DF /* libboost_thread-mt.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = "libboost_thread-mt.dylib"; sourceTree = "<group>"; };
 		8EF69AD01AE700CE000521C7 /* Page.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Page.cpp; sourceTree = "<group>"; };
 		8EF69AD31AE70200000521C7 /* CollectionReader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CollectionReader.cpp; sourceTree = "<group>"; };
 		8EF69AD41AE70200000521C7 /* CollectionReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionReader.h; sourceTree = "<group>"; };
@@ -56,7 +72,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				8EC5DE371AE6F95A005869EF /* libgumbo.1.dylib in Frameworks */,
+				8E3795E11B1E2A6F005D4BE5 /* libhtmlcxx.dylib in Frameworks */,
+				8EF279C21B2B8B1B009412DF /* libboost_coroutine.dylib in Frameworks */,
 				8EC916501AB11D5600D7CC98 /* libz.dylib in Frameworks */,
+				8EF279C01B2B8940009412DF /* libboost_system.dylib in Frameworks */,
+				8EF279C41B2B93E3009412DF /* libboost_thread-mt.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -69,6 +89,7 @@
 				8E4AF1511AADDBDB003D9F79 /* main.cpp */,
 				8EF69AE01AE7C1FB000521C7 /* QueryProcessing */,
 				8E4AF1501AADDBDB003D9F79 /* indexer */,
+				8E4659281B2B14A400EB71C4 /* Ranking */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -79,13 +100,30 @@
 				8EF69AD21AE701DC000521C7 /* RiCode */,
 				8EC5DE361AE6F95A005869EF /* libgumbo.1.dylib */,
 				8EC9164F1AB11D5600D7CC98 /* libz.dylib */,
+				8E3795E01B1E2A6F005D4BE5 /* libhtmlcxx.dylib */,
 			);
 			name = lib;
+			sourceTree = "<group>";
+		};
+		8E4659281B2B14A400EB71C4 /* Ranking */ = {
+			isa = PBXGroup;
+			children = (
+				8E4659291B2B16C700EB71C4 /* page_rank.cpp */,
+				8E46592C1B2B2DA600EB71C4 /* Retriever.cpp */,
+				8E46592D1B2B2DA600EB71C4 /* Retriever.h */,
+				8E46592A1B2B16C700EB71C4 /* page_rank.h */,
+			);
+			name = Ranking;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		8E4AF1451AADDBDB003D9F79 = {
 			isa = PBXGroup;
 			children = (
+				8EF279C31B2B93E3009412DF /* libboost_thread-mt.dylib */,
+				8EF279BF1B2B8940009412DF /* libboost_system.dylib */,
+				8EF279C11B2B8B1B009412DF /* libboost_coroutine.dylib */,
+				8EF279BB1B2B525D009412DF /* www */,
 				8E3E1FEC1ABF825E00F02507 /* lib */,
 				8E1BB2AD1AE6FF57005F3326 /* src */,
 				8EBBFD1C1AB13ECD0000150E /* Information Retrieval */,
@@ -101,6 +139,15 @@
 				8E3E1FEA1ABB509A00F02507 /* Indexer.h */,
 			);
 			path = indexer;
+			sourceTree = "<group>";
+		};
+		8EF279BB1B2B525D009412DF /* www */ = {
+			isa = PBXGroup;
+			children = (
+				8EF279B91B2B5250009412DF /* client_http.hpp */,
+				8EF279BA1B2B5250009412DF /* server_http.hpp */,
+			);
+			name = www;
 			sourceTree = "<group>";
 		};
 		8EF69AD21AE701DC000521C7 /* RiCode */ = {
@@ -184,11 +231,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				8EF69ADA1AE70200000521C7 /* CollectionReader.cpp in Sources */,
+				8E46592E1B2B2DA600EB71C4 /* Retriever.cpp in Sources */,
 				8EF69AD11AE700CE000521C7 /* Page.cpp in Sources */,
 				8EF69ADF1AE7C1C1000521C7 /* QueryProcessing.cpp in Sources */,
 				8EF69ADC1AE70200000521C7 /* Document.cpp in Sources */,
 				8E3E1FEB1ABB509A00F02507 /* Indexer.cpp in Sources */,
 				8E4AF1521AADDBDB003D9F79 /* main.cpp in Sources */,
+				8E46592B1B2B16C700EB71C4 /* page_rank.cpp in Sources */,
 				8EF69ADB1AE70200000521C7 /* CollectionWriter.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

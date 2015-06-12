@@ -14,6 +14,9 @@
 #include <iostream>
 #include <unordered_map>
 #include <gumbo.h>
+#include <vector>
+#include <htmlcxx/html/utils.h>
+#include <htmlcxx/html/Uri.h>
 
 typedef unsigned uint;
 
@@ -29,11 +32,17 @@ class Page{
 
   void parseData (string data);
   string cleanText(GumboNode* node);
+  void getLinks(GumboNode* node);
+  
   void removeHttpHeader(string& http);
   void generate_keywords(string clearText);
+  void generate_anchors(string text, string uri);
+  void getUrls();
+  
   
 public:
   unordered_map<string, uint> keywords_;
+  unordered_map<string, unordered_map<string, uint> > anchor_texts_;
   Page(string data, string url, uint pid);
   const unordered_map<string, uint> keywords() { return keywords_; };
   uint id() { return id_; }
